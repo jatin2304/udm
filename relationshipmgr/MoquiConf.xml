@@ -1,0 +1,9 @@
+<moqui-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/moqui-conf-3.xsd">
+   <screen-facade>
+       <screen location="component://webroot/screen/webroot/apps.xml">
+           <subscreens-item name="mainscreen" menu-index="1" menu-title="Main screen"
+                            location="component://relationshipmgr/screen/RelationshipScreen.xml" />
+       </screen>
+   </screen-facade>
+</moqui-conf>

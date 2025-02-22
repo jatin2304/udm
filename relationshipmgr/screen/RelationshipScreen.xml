@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<screen xmlns:xsi="http://moqui.org/xsd/screen-3.xsd"
+        xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/screen-3.xsd"
+        require-authentication="anonymous-all">
+<!--party transitions-->
+    <transition name="createParty">
+        <service-call name="create#Party"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="updateParty">
+        <service-call name="update#Party"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="deleteParty">
+        <service-call name="delete#Party"/>
+        <default-response url="."/>
+    </transition>
+
+
+    <!--person transitions-->
+    <transition name="createPerson">
+        <service-call name="create#Person"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="updatePerson">
+        <service-call name="update#Person"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="deletePerson">
+        <service-call name="delete#Person"/>
+        <default-response url="."/>
+    </transition>
+
+<!--organizations transitions-->
+    <transition name="createOrganization">
+        <service-call name="create#Organization"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="updateOrganization">
+        <service-call name="update#Organization"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="deleteOrganization">
+        <service-call name="delete#Organization"/>
+        <default-response url="."/>
+    </transition>
+
+    <!--party roles transitions-->
+    <transition name="createPartyRole">
+        <service-call name="create#PartyRole"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="updatePartyRole">
+        <service-call name="update#PartyRole"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="deletePartyRole">
+        <service-call name="delete#PartyRole"/>
+        <default-response url="."/>
+    </transition>
+
+    <actions>
+        <entity-find entity-name="Party" list="partyList"/>
+        <entity-find entity-name="Person" list="personList"/>
+        <entity-find entity-name="Organization" list="organizationList"/>
+        <entity-find entity-name="PartyRole" list="partyRoleList"/>
+    </actions>
+
+    <widgets>
+        <label type="h2" text="Party table data"/>
+        <form-list name="show-party" list="partyList" header-dialog="true" skip-form="true">
+            <field name="partyId">
+                <default-field title="Party Id">
+                    <display/>
+                </default-field>
+            </field>
+            <field name="partyTypeId">
+                <default-field title="Party type Id">
+                    <display/>
+                </default-field>
+            </field>
+<!--         <auto-fields-entity entity-name="Party" field-type="display"/>-->
+        </form-list>
+        <container-dialog id="createParty" button-text="create">
+            <form-single name="partyCreateForm" transition="createParty">
+                <auto-fields-entity entity-name="Party" field-type="edit"/>
+                <field name="cParty">
+                    <default-field title="create">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+        <container-dialog id="updateParty" button-text="update">
+            <form-single name="partyUpdateForm" transition="updateParty">
+                <auto-fields-entity entity-name="Party" field-type="edit"/>
+                <field name="cParty">
+                    <default-field title="update">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+        <container-dialog id="deleteParty" button-text="delete">
+            <form-single name="partyDeleteForm" transition="deleteParty">
+                <field name="partyId">
+                    <default-field title="party id">
+                       <text-line/>
+                    </default-field>
+                </field>
+                <field name="dParty">
+                    <default-field title="delete">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+
+        <label type="h2" text="Person table data"/>
+        <form-list name="show-person" list="personList" header-dialog="true" skip-form="true">
+            <auto-fields-entity entity-name="Person" field-type="find-display"/>
+        </form-list>
+        <container-dialog id="createPerson" button-text="create">
+            <form-single name="personCreateForm" transition="createPerson">
+                <auto-fields-entity field-type="edit" entity-name="Person"/>
+                <field name="cPerson">
+                    <default-field title="create">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="updatePerson" button-text="update">
+            <form-single name="personUpdateForm" transition="updatePerson">
+                <auto-fields-entity field-type="edit" entity-name="Person"/>
+                <field name="uPerson">
+                    <default-field title="update">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+        <container-dialog id="deletePerson" button-text="delete">
+            <form-single name="personDeleteForm" transition="deletePerson">
+                <field name="partyId">
+                    <default-field title="party id">
+                        <text-line/>
+                    </default-field>
+                </field>
+                <field name="dPerson">
+                    <default-field title="delete">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+
+        <label type="h2" text="Organization table data"/>
+        <form-list name="show-organization" list="organizationList" header-dialog="true" skip-form="true">
+            <field name="partyId">
+                <default-field title="Party Id">
+                    <display/>
+                </default-field>
+            </field>
+            <field name="organizationName">
+                <default-field title="Organization name">
+                    <display/>
+                </default-field>
+            </field>
+<!--            <auto-fields-entity entity-name="Organization" field-type="find-display"/>-->
+        </form-list>
+
+        <container-dialog id="createOrganization" button-text="create">
+            <form-single name="organizationCreateForm" transition="createOrganization">
+                <auto-fields-entity field-type="edit" entity-name="Organization"/>
+                <field name="cOrganization">
+                    <default-field title="create">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="updateOrganization" button-text="update">
+            <form-single name="organizationUpdateForm" transition="updateOrganization">
+                <auto-fields-entity field-type="edit" entity-name="Organization"/>
+                <field name="uOrganization">
+                    <default-field title="edit">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+        <container-dialog id="deleteOrganization" button-text="delete">
+            <form-single name="organizationDeleteForm" transition="deleteOrganization">
+                <field name="partyId">
+                    <default-field title="party id">
+                        <text-line/>
+                    </default-field>
+                </field>
+                <field name="dOrganization">
+                    <default-field title="delete">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+
+        <label type="h2" text="Party Role table data"/>
+        <form-list name="show-party-role" list="partyRoleList" header-dialog="true" skip-form="true">
+            <field name="partyId">
+                <default-field title="Party Id">
+                    <display/>
+                </default-field>
+            </field>
+            <field name="roleTypeId">
+                <default-field title="Role type Id">
+                    <display/>
+                </default-field>
+            </field>
+            <!--            <auto-fields-entity entity-name="PartyRole" field-type="find-display"/>-->
+        </form-list>
+        <container-dialog id="createPartyRole" button-text="create">
+            <form-single name="partyRoleCreateForm" transition="createPartyRole">
+                <auto-fields-entity entity-name="PartyRole" field-type="edit"/>
+                <field name="cPartyRole">
+                    <default-field title="create">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+        <container-dialog id="updatePartyRole" button-text="update">
+            <form-single name="partyRoleUpdateForm" transition="updatePartyRole">
+                <auto-fields-entity entity-name="PartyRole" field-type="edit"/>
+                <field name="uPartyRole">
+                    <default-field title="edit">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+        <container-dialog id="deletePartyRole" button-text="delete">
+            <form-single name="partyRoleDeleteForm" transition="deletePartyRole">
+                <field name="partyId">
+                    <default-field title="party id">
+                        <text-line/>
+                    </default-field>
+                </field>
+                <field name="dPartyRole">
+                    <default-field title="delete">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+    </widgets>
+</screen>

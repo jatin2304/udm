@@ -1,0 +1,37 @@
+<services>
+<!--    using script-->
+<service verb="create" noun="MoquiTraining" type="script" location="component://moqui-training/script/MoquiScript.groovy">
+    <in-parameters>
+        <parameter name="trainingName" rerquired="true"/>
+        <parameter name="trainingId" required="true"/>
+        <parameter name="trainingDate" required="true"/>
+        <parameter name="trainingPrice" required="true"/>
+        <parameter name="trainingDuration" required="true"/>
+    </in-parameters>
+    <out-parameters>
+        <parameter name="response" type="String" required="true"/>
+        <parameter name="trainingId" required="true"/>
+    </out-parameters>
+</service>
+<!--    using inline-->
+    <service verb="inlinecreate" noun="MoquiTraining" type="inline">
+        <in-parameters>
+            <parameter name="trainingId" required="true"/>
+            <parameter name="trainingName" required="true"/>
+            <parameter name="trainingDate" required="true"/>
+            <parameter name="trainingPrice" required="true"/>
+            <parameter name="trainingDuration" required="true"/>
+
+<!--            <auto-parameter include="all"/>    // will work when field is not mandatory-->
+        </in-parameters>
+        <out-parameters>
+            <parameter name ="trainingName" required="true"/>
+            <auto-parameters include="pk" required="true"/>
+        </out-parameters>
+        <actions>
+            <entity-make-value entity-name="moquitraining.MoquiTraining" value-field="mt"/>
+            <entity-set value-field="mt" include="all"/>
+            <entity-create value-field="mt"/>
+        </actions>
+    </service>
+</services>

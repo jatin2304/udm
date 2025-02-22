@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-3.xsd">
+<!--    Party entities-->
+<!--    assignment 2.1-->
+    <entity entity-name="Party" package="relationship" short-alias="party">
+        <field name="partyId" type="id" is-pk="true"/>
+        <field name="partyTypeId" type="text-medium"/>
+        <relationship type="one-nofk" related="Person"/>
+        <relationship type="one-nofk" related="Organization"/>
+    </entity>
+
+    <entity entity-name="Person" package="relationship" short-alias="person">
+        <field name="partyId" type="id" is-pk="true"/>
+        <field name="firstName" type="text-short"/>
+        <field name="lastName" type="text-short"/>
+        <field name="birthDate" type="date"/>
+        <relationship type="one" related="Party"/>
+    </entity>
+
+    <entity entity-name="Organization" package="relationship" short-alias="organization">
+        <field name="partyId" type="id" is-pk="true"/>
+        <field name="organizationName" type="text-short"/>
+        <relationship type="one" related="Party"/>
+    </entity>
+
+    <entity entity-name="PartyRole" package="relationship" short-alias="partyRole">
+        <field name="partyId" type="id" is-pk="true"/>
+        <field name="roleTypeId" type="id"/>
+        <relationship type="one" related="Party"/>
+    </entity>
+
+</entities>

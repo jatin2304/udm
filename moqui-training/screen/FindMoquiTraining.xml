@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<screen require-authentication="anonymous-all" xmlns:xsi="http://moqui.org/xsd/screen-3.xsd" xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/xml-screen-3.xsd" >
+<!--    using built-in services-->
+    <transition name="create">
+        <service-call name="create#moquitraining.MoquiTraining"/>
+        <default-response url="."/>
+    </transition>
+<!--    using custom services-->
+    <transition name="customcreate">
+        <service-call name="MoquiService.create#MoquiTraining"/>
+        <default-response url="."/>
+    </transition>
+
+    <!--    step 2: finding entity and loading in list-->
+    <actions>
+       <entity-find entity-name="MoquiTraining" list="trainingList">
+            <search-form-inputs/>
+       </entity-find>
+    </actions>
+    <widgets>
+        <!--        step 3: displaying data on the basis of search-->
+        <form-single>
+            <auto-fields-entity entity-name="MoquiTraining" field-type="find" />
+            <field name="search">
+                <default-field title="search">
+                    <submit/>
+                </default-field>
+            </field>
+        </form-single>
+
+        <container-dialog id="CreateDialog" button-text="Create a record">
+            <form-single name="Create1" transition="customcreate">
+                <auto-fields-entity entity-name="MoquiTraining" field-type="edit"/>
+                <field name="create">
+                    <default-field title="click to create">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <!--        step 2: displaying all the data in the list-->
+        <form-list name="ListMoquiTraining" list="trainingList" header-dialog="true" skip-form="true" >
+            <auto-fields-entity entity-name="MoquiTraining" field-type="display"/>
+        </form-list>
+    </widgets>
+</screen>
