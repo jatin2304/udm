@@ -2,7 +2,7 @@
 <screen xmlns:xsi="http://moqui.org/xsd/screen-3.xsd"
         xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/screen-3.xsd"
         require-authentication="anonymous-all">
-<!--party transitions-->
+    <!--party transitions-->
     <transition name="createParty">
         <service-call name="create#Party"/>
         <default-response url="."/>
@@ -12,10 +12,9 @@
         <default-response url="."/>
     </transition>
     <transition name="deleteParty">
-        <service-call name="delete#Party"/>
+        <service-call name="Service.delete#Party"/>
         <default-response url="."/>
     </transition>
-
 
     <!--person transitions-->
     <transition name="createPerson">
@@ -31,7 +30,7 @@
         <default-response url="."/>
     </transition>
 
-<!--organizations transitions-->
+    <!--organizations transitions-->
     <transition name="createOrganization">
         <service-call name="create#Organization"/>
         <default-response url="."/>
@@ -59,12 +58,90 @@
         <default-response url="."/>
     </transition>
 
+<!--Contact mechanism transitions-->
+    <transition name="createContactMech">
+        <service-call name="create#ContactMech"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="updateContactMech">
+        <service-call name="update#ContactMech"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="deleteContactMech">
+        <service-call name="Service.delete#relationship.ContactMech"/>
+        <default-response url="."/>
+    </transition>
+
+<!--Telecom number transitions-->
+    <transition name="createTelecomNumber">
+        <service-call name="create#TelecomNumber"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="updateTelecomNumber">
+        <service-call name="update#TelecomNumber"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="deleteTelecomNumber">
+        <service-call name="delete#TelecomNumber"/>
+        <default-response url="."/>
+    </transition>
+
+<!--Postal address transitions-->
+    <transition name="createPostalAddress">
+        <service-call name="create#PostalAddress"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="updatePostalAddress">
+        <service-call name="update#PostalAddress"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="deletePostalAddress">
+        <service-call name="delete#PostalAddress"/>
+        <default-response url="."/>
+    </transition>
+
+<!--Contact mech purpose transitions-->
+    <transition name="createContactMechPurpose">
+        <service-call name="create#ContactMechPurpose"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="updateContactMechPurpose">
+        <service-call name="update#ContactMechPurpose"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="deleteContactMechPurpose">
+        <service-call name="delete#ContactMechPurpose"/>
+        <default-response url="."/>
+    </transition>
+
+<!--Party contact mech transitions-->
+    <transition name="createPartyContactMech">
+        <service-call name="create#PartyContactMech"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="updatePartyContactMech">
+        <service-call name="update#PartyContactMech"/>
+        <default-response url="."/>
+    </transition>
+    <transition name="deletePartyContactMech">
+        <service-call name="delete#PartyContactMech"/>
+        <default-response url="."/>
+    </transition>
+
+
+<!-- actions-->
     <actions>
         <entity-find entity-name="Party" list="partyList"/>
         <entity-find entity-name="Person" list="personList"/>
         <entity-find entity-name="Organization" list="organizationList"/>
         <entity-find entity-name="PartyRole" list="partyRoleList"/>
+        <entity-find entity-name="ContactMech" list="contactMechList"/>
+        <entity-find entity-name="TelecomNumber" list="telecomNumberList"/>
+        <entity-find entity-name="PostalAddress" list="postalAddressList"/>
+        <entity-find entity-name="ContactMechPurpose" list="contactMechPurposeList"/>
+        <entity-find entity-name="PartyContactMech" list="partyContactMechList"/>
     </actions>
+
 
     <widgets>
         <label type="h2" text="Party table data"/>
@@ -81,6 +158,7 @@
             </field>
 <!--         <auto-fields-entity entity-name="Party" field-type="display"/>-->
         </form-list>
+
         <container-dialog id="createParty" button-text="create">
             <form-single name="partyCreateForm" transition="createParty">
                 <auto-fields-entity entity-name="Party" field-type="edit"/>
@@ -91,16 +169,18 @@
                 </field>
             </form-single>
         </container-dialog>
+
         <container-dialog id="updateParty" button-text="update">
             <form-single name="partyUpdateForm" transition="updateParty">
                 <auto-fields-entity entity-name="Party" field-type="edit"/>
-                <field name="cParty">
+                <field name="uParty">
                     <default-field title="update">
                         <submit/>
                     </default-field>
                 </field>
             </form-single>
         </container-dialog>
+
         <container-dialog id="deleteParty" button-text="delete">
             <form-single name="partyDeleteForm" transition="deleteParty">
                 <field name="partyId">
@@ -117,10 +197,12 @@
         </container-dialog>
 
 
+
         <label type="h2" text="Person table data"/>
         <form-list name="show-person" list="personList" header-dialog="true" skip-form="true">
             <auto-fields-entity entity-name="Person" field-type="find-display"/>
         </form-list>
+
         <container-dialog id="createPerson" button-text="create">
             <form-single name="personCreateForm" transition="createPerson">
                 <auto-fields-entity field-type="edit" entity-name="Person"/>
@@ -142,6 +224,7 @@
                 </field>
             </form-single>
         </container-dialog>
+
         <container-dialog id="deletePerson" button-text="delete">
             <form-single name="personDeleteForm" transition="deletePerson">
                 <field name="partyId">
@@ -156,6 +239,7 @@
                 </field>
             </form-single>
         </container-dialog>
+
 
 
         <label type="h2" text="Organization table data"/>
@@ -194,6 +278,7 @@
                 </field>
             </form-single>
         </container-dialog>
+
         <container-dialog id="deleteOrganization" button-text="delete">
             <form-single name="organizationDeleteForm" transition="deleteOrganization">
                 <field name="partyId">
@@ -210,6 +295,7 @@
         </container-dialog>
 
 
+
         <label type="h2" text="Party Role table data"/>
         <form-list name="show-party-role" list="partyRoleList" header-dialog="true" skip-form="true">
             <field name="partyId">
@@ -222,8 +308,9 @@
                     <display/>
                 </default-field>
             </field>
-            <!--            <auto-fields-entity entity-name="PartyRole" field-type="find-display"/>-->
+        <!--<auto-fields-entity entity-name="PartyRole" field-type="find-display"/>-->
         </form-list>
+
         <container-dialog id="createPartyRole" button-text="create">
             <form-single name="partyRoleCreateForm" transition="createPartyRole">
                 <auto-fields-entity entity-name="PartyRole" field-type="edit"/>
@@ -234,6 +321,7 @@
                 </field>
             </form-single>
         </container-dialog>
+
         <container-dialog id="updatePartyRole" button-text="update">
             <form-single name="partyRoleUpdateForm" transition="updatePartyRole">
                 <auto-fields-entity entity-name="PartyRole" field-type="edit"/>
@@ -244,14 +332,232 @@
                 </field>
             </form-single>
         </container-dialog>
+
         <container-dialog id="deletePartyRole" button-text="delete">
             <form-single name="partyRoleDeleteForm" transition="deletePartyRole">
+                <auto-fields-entity entity-name="PartyRole" field-type="edit" />
                 <field name="partyId">
                     <default-field title="party id">
                         <text-line/>
                     </default-field>
                 </field>
                 <field name="dPartyRole">
+                    <default-field title="delete">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+
+
+        <label type="h2" text="Contact mechanism table data"/>
+        <form-list name="show-contact-mech" list="contactMechList" header-dialog="true" skip-form="true">
+            <auto-fields-entity entity-name="ContactMech" field-type="find-display"/>
+        </form-list>
+
+        <container-dialog id="createContactMech" button-text="create">
+            <form-single name="ContactMechCreateForm" transition="createContactMech">
+                <auto-fields-entity entity-name="ContactMech" field-type="edit"/>
+                <field name="cContactMech">
+                    <default-field title="create">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="updateContactMech" button-text="update">
+            <form-single name="ContactMechUpdateForm" transition="updateContactMech">
+                <auto-fields-entity entity-name="ContactMech" field-type="edit"/>
+                <field name="uContactMech">
+                    <default-field title="edit">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="deleteContactMech" button-text="delete">
+            <form-single name="ContactMechDeleteForm" transition="deleteContactMech">
+                <field name="contactMechId">
+                    <default-field title="Contact Mech id">
+                        <text-line/>
+                    </default-field>
+                </field>
+                <field name="dContactMech">
+                    <default-field title="delete">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+
+
+        <label type="h2" text="Telecom Number table data"/>
+        <form-list name="show-telecom-number" list="telecomNumberList" header-dialog="true" skip-form="true">
+            <auto-fields-entity entity-name="TelecomNumber" field-type="find-display"/>
+        </form-list>
+
+        <container-dialog id="createTelecomNumber" button-text="create">
+            <form-single name="TelecomNumberCreateForm" transition="createTelecomNumber">
+                <auto-fields-entity entity-name="TelecomNumber" field-type="edit"/>
+                <field name="c">
+                    <default-field title="create">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="updateTelecomNumber" button-text="update">
+            <form-single name="TelecomNumberUpdateForm" transition="updateTelecomNumber">
+                <auto-fields-entity entity-name="TelecomNumber" field-type="edit"/>
+                <field name="u">
+                    <default-field title="edit">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="deleteTelecomNumber" button-text="delete">
+            <form-single name="TelecomNumberDeleteForm" transition="deleteTelecomNumber">
+                <field name="contactMechId">
+                    <default-field title="Contact Mech id">
+                        <text-line/>
+                    </default-field>
+                </field>
+                <field name="d">
+                    <default-field title="delete">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+
+
+        <label type="h2" text="Postal Address table data"/>
+        <form-list name="show-postal-address" list="postalAddressList" header-dialog="true" skip-form="true">
+            <auto-fields-entity entity-name="PostalAddress" field-type="find-display"/>
+        </form-list>
+
+        <container-dialog id="createPostalAddress" button-text="create">
+            <form-single name="PostalAddressCreateForm" transition="createPostalAddress">
+                <auto-fields-entity entity-name="PostalAddress" field-type="edit"/>
+                <field name="c">
+                    <default-field title="create">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="updatePostalAddress" button-text="update">
+            <form-single name="PostalAddressUpdateForm" transition="updatePostalAddress">
+                <auto-fields-entity entity-name="PostalAddress" field-type="edit"/>
+                <field name="u">
+                    <default-field title="edit">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="deletePostalAddress" button-text="delete">
+            <form-single name="PostalAddressDeleteForm" transition="deletePostalAddress">
+                <field name="contactMechId">
+                    <default-field title="Contact Mech id">
+                        <text-line/>
+                    </default-field>
+                </field>
+                <field name="d">
+                    <default-field title="delete">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+
+
+        <label type="h2" text="Contact mech purpose table data"/>
+        <form-list name="show-contact-mech-purpose" list="contactMechPurposeList" header-dialog="true" skip-form="true">
+            <auto-fields-entity entity-name="TelecomNumber" field-type="find-display"/>
+        </form-list>
+
+        <container-dialog id="createContactMechPurpose" button-text="create">
+            <form-single name="ContactMechPurposeCreateForm" transition="createContactMechPurpose">
+                <auto-fields-entity entity-name="ContactMechPurpose" field-type="edit"/>
+                <field name="c">
+                    <default-field title="create">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="updateContactMechPurpose" button-text="update">
+            <form-single name="ContactMechPurposeUpdateForm" transition="updateContactMechPurpose">
+                <auto-fields-entity entity-name="ContactMechPurpose" field-type="edit"/>
+                <field name="u">
+                    <default-field title="edit">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="deleteContactMechPurpose" button-text="delete">
+            <form-single name="ContactMechPurposeDeleteForm" transition="deleteContactMechPurpose">
+                <field name="contactMechPurposeId">
+                    <default-field title="Contact mech purpose id">
+                        <text-line/>
+                    </default-field>
+                </field>
+                <field name="d">
+                    <default-field title="delete">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+
+
+        <label type="h2" text="Party contact mech  table data"/>
+        <form-list name="show-party-contact-mech" list="partyContactMechList" header-dialog="true" skip-form="true">
+            <auto-fields-entity entity-name="TelecomNumber" field-type="find-display"/>
+        </form-list>
+
+        <container-dialog id="createPartyContactMech" button-text="create">
+            <form-single name="PartyContactMechCreateForm" transition="createPartyContactMech">
+                <auto-fields-entity entity-name="PartyContactMech" field-type="edit"/>
+                <field name="c">
+                    <default-field title="create">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="updatePartyContactMech" button-text="update">
+            <form-single name="PartyContactMechUpdateForm" transition="updatePartyContactMech">
+                <auto-fields-entity entity-name="PartyContactMech" field-type="edit"/>
+                <field name="u">
+                    <default-field title="edit">
+                        <submit/>
+                    </default-field>
+                </field>
+            </form-single>
+        </container-dialog>
+
+        <container-dialog id="deletePartyContactMech" button-text="delete">
+            <form-single name="PartyContactMechDeleteForm" transition="deletePartyContactMech">
+                <auto-fields-entity entity-name="PartyContactMech" field-type="edit"/>
+                <field name="d">
                     <default-field title="delete">
                         <submit/>
                     </default-field>

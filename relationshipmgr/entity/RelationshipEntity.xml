@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <entities xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/entity-definition-3.xsd">
-<!--    Party entities-->
-<!--    assignment 2.1-->
+ <!--    Party entities-->
+ <!--    assignment 2.1-->
     <entity entity-name="Party" package="relationship" short-alias="party">
         <field name="partyId" type="id" is-pk="true"/>
         <field name="partyTypeId" type="text-medium"/>
         <relationship type="one-nofk" related="Person"/>
         <relationship type="one-nofk" related="Organization"/>
+        <relationship type="many" related="PartyRole" />
+        <master>
+            <detail relationship="person"/>
+            <detail relationship="organization"/>
+            <detail relationship="partyRole"/>
+        </master>
     </entity>
 
     <entity entity-name="Person" package="relationship" short-alias="person">
@@ -26,8 +32,58 @@
 
     <entity entity-name="PartyRole" package="relationship" short-alias="partyRole">
         <field name="partyId" type="id" is-pk="true"/>
-        <field name="roleTypeId" type="id"/>
+        <field name="roleTypeId" type="id" is-pk="true"/>
         <relationship type="one" related="Party"/>
+    </entity>
+
+<!--    Contact mechanism entities -->
+<!--    assignment 2.2.1-->
+    <entity entity-name="ContactMech" package="relationship" short-alias="contactMech">
+        <field name="contactMechId" type="id" is-pk="true"/>
+        <field name="contactMechTypeEnumId" type="text-medium"/>
+        <field name="infoString" type="text-medium"/>
+        <relationship type="one-nofk" related="TelecomNumber"/>
+        <relationship type="one-nofk" related="PostalAddress"/>
+        <master name="masterContactmech">
+            <detail relationship="TelecomNumber"/>
+            <detail relationship="PostalAddress"/>
+        </master>
+    </entity>
+
+    <entity entity-name="TelecomNumber" package="relationship" short-alias="telecomNumber">
+        <field name="contactMechId" type="id" is-pk="true"/>
+        <field name="countryCode" type="text-medium"/>
+        <field name="areaCode" type="text-medium"/>
+        <field name="contactNumber" type="text-medium"/>
+        <relationship type="one" related="ContactMech"/>
+    </entity>
+
+    <entity entity-name="PostalAddress" package="relationship" short-alias="postalAddress">
+        <field name="contactMechId" type="id" is-pk="true"/>
+        <field name="toName" type="text-medium"/>
+        <field name="attnName" type="text-medium"/>
+        <field name="address1" type="text-medium"/>
+        <field name="address2" type="text-medium"/>
+        <field name="city" type="text-medium"/>
+        <field name="postalCode" type="number-integer"/>
+        <relationship type="one" related="ContactMech"/>
+    </entity>
+
+<!--    assignment 2.2.2-->
+    <entity entity-name="ContactMechPurpose" package="relationship" short-alias="contactMechPurpose">
+        <field name="contactMechPurposeId" type="id" is-pk="true"/>
+        <relationship type="many" related="PartyContactMech"/>
+    </entity>
+<!--    assignment 2.2.3-->
+    <entity entity-name="PartyContactMech" package="relationship" short-alias="partyContactMech">
+        <field name="partyId" type="id" is-pk="true"/>
+        <field name="contactMechId" type="id" is-pk="true"/>
+        <field name="contactMechPurposeId" type="id" is-pk="true"/>
+        <field name="fromDate" type="date" is-pk="true"/>
+        <relationship type="one" related="Party"/>
+        <relationship type="one" related="ContactMech"/>
+        <relationship type="one" related="ContactMechPurpose"/>
+
     </entity>
 
 </entities>

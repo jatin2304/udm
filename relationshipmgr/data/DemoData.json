@@ -1,0 +1,61 @@
+[
+  {"_dataType":  "demo"},
+  {
+    "_entity": "Party",
+    "partyId": "PER123",
+    "partyTypeId": "PERSON",
+    "person": {
+      "firstName": "John",
+      "lastName": "Wick",
+      "birthDate": "1999-10-01"
+    },
+    "partyRole": [
+      {
+        "roleTypeId": "CUSTOMER"
+      },
+      {
+        "roleTypeId": "EMPLOYEE"
+      }
+    ]
+  },
+  {
+    "_entity": "Party",
+    "partyId": "ORG123",
+    "partyTypeId": "ORGANIZATION",
+    "organization": {
+      "organizationName": "ABC Enterprize"
+    },
+    "partyRole": {
+      "roleTypeId": "EMPLOYER"
+    }
+  },
+  {
+    "_entity": "ContactMech",
+    "contactMechId": "10000",
+    "contactMechTypeEnumId": "TELECOM_NUMBER",
+    "number": {
+      "countryCode": "1",
+      "areaCode": "123",
+      "contactNumber": "4567890"
+    }
+  },
+  {
+    "_entity": "ContactMech",
+    "contactMechId": "1004",
+    "contactMechTypeEnumId": "POSTAL_ADDRESS",
+    "address": {
+      "toName": "SoHo Store",
+      "attnName": "Home",
+      "address1": "123 Broome St",
+      "city": "New York",
+      "postalCode": "10012"
+    }
+  },
+
+  {
+    "_entity": "ContactMech",
+    "contactMechId": "10001",
+    "contactMechTypeEnumId": "EMAIL_ADDRESS",
+    "infoString": "example@email.com"
+  }
+]

@@ -1,0 +1,18 @@
+<services>
+    <service verb="delete" noun="Party" type="script" location="component://relationshipmgr/script/Party.groovy">
+        <in-parameters>
+            <parameter name="partyId" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="partyTypeId" required="true"/>
+        </out-parameters>
+    </service>
+    <service verb="delete" noun="ContactMech" type="script" location="component://relationshipmgr/script/ContactMech.groovy">
+        <in-parameters>
+            <parameter name="contactMechId" required="true"/>
+        </in-parameters>
+        <out-parameters>
+            <parameter name="contactMechTypeEnumId" required="true"/>
+        </out-parameters>
+    </service>
+</services>

@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<entity-facade-xml text="demo">
-    <trainingEntity.MoquiTraining trainingId="mt004" trainingName="PERN" trainingDate="2025-02-12" trainingPrice="699" trainingDuration="20"/>
-    <trainingEntity.MoquiTraining trainingId="mt003" trainingName="PEAN" trainingDate="2025-02-12" trainingPrice="749" trainingDuration="18"/>
-    <trainingEntity.MoquiTraining trainingId="mt005" trainingName="MERN" trainingDate="2025-02-12" trainingPrice="899" trainingDuration="20"/>
-    <trainingEntity.MoquiTraining trainingId="mt006" trainingName="MEAN" trainingDate="2025-02-12" trainingPrice="799" trainingDuration="18"/>
-</entity-facade-xml>
