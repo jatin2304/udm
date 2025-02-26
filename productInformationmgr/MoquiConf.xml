@@ -1,0 +1,9 @@
+<moqui-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:noNamespaceSchemaLocation="http://moqui.org/xsd/moqui-conf-3.xsd">
+   <screen-facade>
+       <screen location="component://webroot/screen/webroot/apps.xml">
+           <subscreens-item name="product" menu-title="Products" menu-index="1"
+                            location="component://productInformationmgr/screen/ProductScreen.xml"/>
+       </screen>
+   </screen-facade>
+</moqui-conf>

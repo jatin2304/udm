@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<services>
+    <service verb="delete" noun="Product" type="script" location="component://productInformationmgr/script/ProductScript.groovy">
+        <in-parameters>
+            <parameter name="productId" required="true"/>
+        </in-parameters>
+    </service>
+    <service verb="delete" noun="ProductFeature" type="script" location="component://productInformationmgr/script/ProductFeature.groovy">
+        <in-parameters>
+            <parameter name="productFeatureId" required="true"/>
+        </in-parameters>
+    </service>
+    <service verb="delete" noun="ProductCategory" type="script" location="component://productInformationmgr/script/ProductCategory.groovy">
+        <in-parameters>
+            <parameter name="productCategoryId" required="true"/>
+        </in-parameters>
+    </service>
+
+</services>
